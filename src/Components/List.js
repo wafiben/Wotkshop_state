@@ -16,6 +16,9 @@ class List extends Component {
               incrementQuatity={this.props.incrementQuatity}
               DecrementQuantity={this.props.DecrementQuantity}
               deleteArticle={this.props.deleteArticle}
+              handleTotalIncrement={this.props.handleTotalIncrement}
+              handleTotalDecrement={this.props.handleTotalDecrement}
+         
             />
           ))}
         </div>

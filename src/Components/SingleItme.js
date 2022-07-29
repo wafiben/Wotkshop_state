@@ -8,13 +8,17 @@ class SingleItme extends Component {
   }
   handleIncrement = () => {
     this.props.incrementQuatity(this.props.elt.id);
+    this.props.handleTotalIncrement(this.props.elt)
   };
   handleDecrement = () => {
-    this.props.DecrementQuantity(this.props.elt.id);
+    this.props.DecrementQuantity(this.props.elt.id);  
+    this.props.handleTotalDecrement(this.props.elt)
   };
+
   handleDelete=()=>{
-    this.props.deleteArticle(this.props.elt.id)
+    this.props.deleteArticle(this.props.elt)
   }
+  
 
   render() {
     return (

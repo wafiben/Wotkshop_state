@@ -46,9 +46,21 @@ class App extends Component {
       }),
     });
   };
-deleteArticle=(id)=>{
-   this.setState({articles:this.state.articles.filter((elt)=>elt.id!==id)})
-}
+  deleteArticle = (article) => {
+    this.setState({
+      articles: this.state.articles.filter((elt) => elt.id !== article.id),
+      sum: this.state.sum - article.qte * article.price,
+    });
+  };
+  handleTotalIncrement = (x) => {
+    this.setState({ sum: this.state.sum + x.price });
+  };
+  handleTotalDecrement = (x) => {
+    if (this.state.sum > 0||x.qte>0) {
+      this.setState({ sum: this.state.sum - x.price });
+    }
+  };
+
   render() {
     const { articles, sum } = this.state;
     return (
@@ -59,6 +71,8 @@ deleteArticle=(id)=>{
           incrementQuatity={this.incrementQuatity}
           DecrementQuantity={this.DecrementQuantity}
           deleteArticle={this.deleteArticle}
+          handleTotalIncrement={this.handleTotalIncrement}
+          handleTotalDecrement={this.handleTotalDecrement}
         />
       </div>
     );
