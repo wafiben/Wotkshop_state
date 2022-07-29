@@ -1,41 +1,68 @@
 import React, { Component } from "react";
 import "./App.css";
-
+import List from "./Components/List";
 
 class App extends Component {
-  state = { show: false,count:0 };
-  handleClick = () => {
-    this.state.show
-      ? this.setState({ show: false })
-      : this.setState({ show: true });
+  state = {
+    articles: [
+      {
+        id: 0,
+        name: "pc",
+        price: 55,
+        qte: 0,
+        image:
+          "https://www.tunisianet.com.tn/134151-large/pc-portable-lenovo-ideapad-l340-15irh-gaming-i5-9e-gen-8-go-sac-a-dos-lenovo-offert.jpg",
+      },
+      {
+        id: 1,
+        name: "ipod",
+        price: 20,
+        qte: 0,
+        image:
+          "https://i.etsystatic.com/19007236/r/il/dd3a32/2133570822/il_fullxfull.2133570822_qkhj.jpg",
+      },
+    ],
+    sum: 0,
   };
-
-  increment=()=>{
-    this.setState({count: this.state.count+1})
-  }
-  decrement=()=>{
-    this.state.count>0 &&  this.setState({count: this.state.count-1}) 
-       
-  }
-
+  incrementQuatity = (id) => {
+    this.setState({
+      articles: this.state.articles.map((elt) => {
+        if (elt.id == id) {
+          return { ...elt, qte: elt.qte + 1 };
+        } else {
+          return elt;
+        }
+      }),
+    });
+  };
+  DecrementQuantity = (id) => {
+    this.setState({
+      articles: this.state.articles.map((elt) => {
+        if (elt.id == id && elt.qte > 0) {
+          return { ...elt, qte: elt.qte - 1 };
+        } else {
+          return elt;
+        }
+      }),
+    });
+  };
+deleteArticle=(id)=>{
+   this.setState({articles:this.state.articles.filter((elt)=>elt.id!==id)})
+}
   render() {
+    const { articles, sum } = this.state;
     return (
       <div className="App">
-        <button
-          onClick={this.handleClick}
-          /* className={this.state.show ? "btnTrue" : "btnFlse"} */
-          style={this.state.show ? {backgroundColor:"green"}: {backgroundColor:"red"}}
-        >
-          changeMyStyle
-        </button>
-        <div>
-        <button onClick={this.increment}>+</button>
-        <h3>{this.state.count}</h3>
-        <button onClick={this.decrement}>-</button>
-        </div>
-
+        <List
+          articles={articles}
+          sum={sum}
+          incrementQuatity={this.incrementQuatity}
+          DecrementQuantity={this.DecrementQuantity}
+          deleteArticle={this.deleteArticle}
+        />
       </div>
     );
   }
 }
+
 export default App;
